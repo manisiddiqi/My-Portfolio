@@ -1,0 +1,329 @@
+/* --- GLOBAL VARIABLES & RESET --- */
+:root { 
+    --bg: #050505; 
+    --accent: #38bdf8; 
+    --text-dim: #a1a1aa; 
+    --border: rgba(255, 255, 255, 0.08); 
+    --nav-height: 90px;
+    --card-gap: 24px; 
+}
+
+body { 
+    background: var(--bg); 
+    color: white; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    overflow-x: hidden; 
+}
+
+/* --- UNIVERSAL NAVBAR --- */
+.navbar { 
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    padding: 0; 
+    background: rgba(10, 10, 10, 0.75); 
+    backdrop-filter: blur(20px); 
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(to right, transparent, var(--border), var(--accent), var(--border), transparent) 1;
+    z-index: 2000;
+}
+.nav-container { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+/* --- NAVBAR BRAND (LOGO) GRADIENT --- */
+.navbar-brand { 
+    font-weight: 800; 
+    font-size: 1.6rem; /* Thora sa size barhaya hai */
+    text-decoration: none; 
+    letter-spacing: -1px; /* Modern look ke liye spacing kam ki */
+    
+    /* Gradient Logic */
+    background: linear-gradient(to right, #ffffff 40%, #38bdf8 100%);
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Backup color transparent */
+    
+    transition: 0.3s ease;
+    display: inline-block;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05); /* Hover par halka sa zoom */
+    opacity: 0.9;
+}
+
+/* Dot (.) ka color alag se chamke ga */
+.navbar-brand span.text-info {
+    -webkit-text-fill-color: #38bdf8; /* Dot ko solid blue rakha hai */
+    text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+/* Desktop Links */
+.nav-custom-links { display: flex !important; list-style: none; margin: 0; padding: 0; }
+.nav-custom-links li { margin-left: 30px; }
+.nav-link-custom { font-size: 0.75rem; font-weight: 700; color: var(--text-dim); text-decoration: none; text-transform: uppercase; letter-spacing: 2px; position: relative; transition: 0.4s; }
+.nav-link-custom:hover, .nav-link-custom.active { color: var(--accent); }
+.nav-link-custom.active::after { content: ''; position: absolute; width: 100%; height: 2px; background: var(--accent); bottom: -10px; left: 0; box-shadow: 0 0 10px var(--accent); }
+
+/* --- HAMBURGER BUTTON (Naya Add Kiya) --- */
+.menu-toggle {
+    display: none !important; /* Desktop par hide */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer;
+    z-index: 9999; /* Sab se oopar */
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    outline: none;
+}
+.menu-toggle span {
+    display: block !important;
+    width: 28px;
+    height: 3px; /* Thora mota kiya taake saaf dikhe */
+    background-color: #38bdf8 !important; /* Bright Blue */
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive Check */
+@media (max-width: 991px) {
+    .menu-toggle {
+        display: flex !important; /* Mobile par force show */
+        position: relative;
+    }
+    
+    /* Pehle se bani desktop links ko hide rakhein */
+    #nav-menu {
+        display: none !important;
+    }
+    
+    #nav-menu.active {
+        display: flex !important;
+    }
+}
+
+/* --- GLOBAL SECTION SPACING --- */
+.hero, .contact-section, .content-area { 
+    min-height: 90vh; 
+    padding-top: calc(var(--nav-height) + 60px) !important; 
+    padding-bottom: 80px;
+}
+
+/* --- TITLES --- */
+.display-1, .contact-title, .display-4 { 
+    font-size: clamp(3.5rem, 7vw, 5.5rem) !important;
+    font-weight: 800; 
+    letter-spacing: -3px; 
+    line-height: 1;
+    background: linear-gradient(to bottom, #ffffff 40%, #38bdf8 100%);
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 25px;
+}
+.display-1 { font-size: clamp(3.5rem, 8vw, 6.5rem); }
+.display-4 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+
+.section-label { 
+    color: var(--accent); 
+    font-weight: 800; 
+    letter-spacing: 5px; 
+    font-size: 0.8rem; 
+    text-transform: uppercase; 
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* --- BENTO GRID & PROJECTS --- */
+.row.g-3, .row.g-4 {
+    --bs-gutter-x: var(--card-gap);
+    --bs-gutter-y: var(--card-gap);
+}
+
+.bento-card { 
+    border: 1px solid var(--border); 
+    border-radius: 28px; 
+    overflow: hidden; 
+    position: relative; 
+    background: #0a0a0a; 
+    transition: 0.5s ease; 
+    height: 400px; 
+    cursor: pointer; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    padding: 40px; 
+}
+
+.bento-card-mini { 
+    background: #0a0a0a; 
+    border: 1px solid var(--border); 
+    border-radius: 22px; 
+    padding: 25px; 
+    height: 100%; 
+    min-height: 180px; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    cursor: pointer; 
+    transition: 0.3s ease; 
+    position: relative; 
+    overflow: hidden; 
+}
+
+.bento-card:hover, .bento-card-mini:hover { 
+    border-color: var(--accent); 
+    transform: translateY(-10px); 
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.mini-title { font-size: 1.2rem; font-weight: 800; color: white; margin-bottom: 5px; z-index: 2; position: relative; }
+.mini-desc { font-size: 0.7rem; color: var(--accent); font-weight: 700; text-transform: uppercase; z-index: 2; position: relative; }
+
+/* --- PROFILE IMAGE --- */
+.profile-img { 
+    width: 100%; 
+    max-width: 420px; 
+    height: 480px; 
+    border-radius: 40px; 
+    filter: grayscale(100%); 
+    transition: 0.6s ease; 
+    border: 1px solid var(--border); 
+    object-fit: cover; 
+}
+.profile-img:hover { filter: grayscale(0%); border-color: var(--accent); }
+
+/* --- STATS BOX --- */
+.stats-box { 
+    background: rgba(255,255,255,0.03); 
+    padding: 40px; border-radius: 24px; border: 1px solid var(--border);
+    transition: 0.4s; height: 100%;
+}
+.stat-number { font-weight: 800; font-size: 3rem; margin-bottom: 0; color: white; }
+
+/* --- FORM --- */
+.form-container { background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 40px; border-radius: 30px; backdrop-filter: blur(15px); }
+.form-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 15px 20px; color: white; margin-bottom: 20px; }
+.btn-send { background: white; color: black; width: 100%; padding: 18px; border-radius: 15px; font-weight: 800; border: none; text-transform: uppercase; transition: 0.3s; }
+.btn-live {
+    background: rgba(56, 189, 248, 0.1); /* Light blue transparent */
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 10px 25px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.btn-live:hover {
+    background: var(--accent);
+    color: black;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+    transform: translateY(-3px);
+}
+
+/* Card ke andar content ki spacing */
+.position-relative.z-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.btn-main {
+    background: var(--accent);
+    color: #050505; /* Black text on blue background */
+    padding: 16px 35px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 2px solid var(--accent);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.2);
+}
+
+.btn-main:hover {
+    background: transparent;
+    color: var(--accent);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(56, 189, 248, 0.4);
+}
+
+/* Secondary Button (for 'Download CV' or 'Contact') */
+.btn-outline-custom {
+    background: transparent;
+    color: white;
+    padding: 16px 35px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid var(--border);
+    transition: 0.4s;
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.btn-outline-custom:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(56, 189, 248, 0.05);
+}
+/* --- GRADIENTS FIX (Saray cards ke liye) --- */
+.card-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.2; z-index: 1; }
+.grad-1 { background: radial-gradient(circle at top right, #3b82f6, transparent 80%); }
+.grad-2 { background: radial-gradient(circle at top right, #ec4899, transparent 80%); }
+.grad-3 { background: radial-gradient(circle at top right, #10b981, transparent 80%); }
+.grad-4 { background: radial-gradient(circle at top right, #f59e0b, transparent 80%); }
+.grad-5 { background: radial-gradient(circle at top right, #8b5cf6, transparent 80%); }
+
+/* --- MOBILE RESPONSIVE LOGIC --- */
+@media (max-width: 991px) {
+    .menu-toggle { display: flex; }
+
+    .nav-custom-links {
+        display: none !important; /* Default hide */
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(5, 5, 5, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column !important;
+        align-items: center;
+        justify-content: center;
+        z-index: 1500;
+    }
+
+    .nav-custom-links.active {
+        display: flex !important;
+    }
+
+    .nav-custom-links li {
+        margin: 20px 0;
+    }
+
+    .nav-link-custom {
+        font-size: 1.5rem;
+    }
+    
+    .menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { transform: rotate(-45deg); }
+}
+
+footer { padding: 60px 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-dim); font-size: 0.75rem; margin-top: 80px; }
